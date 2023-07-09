@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
@@ -35,12 +37,14 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.nameisjayant.threadsapp.R
 import com.nameisjayant.threadsapp.components.SearchViewComponent
 import com.nameisjayant.threadsapp.ui.theme.Purple40
+import com.nameisjayant.threadsapp.ui.theme.gray_color
 
 
 @Composable
 fun SearchScreen() {
 
     var search by remember { mutableStateOf("") }
+    val state = rememberLazyListState()
 
     BoxWithConstraints(
         modifier = Modifier
@@ -79,7 +83,8 @@ fun SearchScreen() {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                     top.linkTo(searchView.bottom)
-                }
+                },
+                state = state
             ) {
                 items(10) {
                     SearchProfileLayout()
@@ -119,13 +124,18 @@ fun SearchProfileLayout(
         ) {
             Text(text = "nameisjayant", style = TextStyle(
                 color = Color.Black,
-                fontSize = 17.sp
+                fontSize = 17.sp,
+                fontWeight = FontWeight.W600
             ), modifier = Modifier.constrainAs(username) {
                 start.linkTo(parent.start)
                 top.linkTo(parent.top)
                 bottom.linkTo(name.top)
             })
-            Text(text = "Jayant", color = Color.Gray, modifier = Modifier.constrainAs(name) {
+            Text(text = "Jayant", style = TextStyle(
+                color = Color.Gray,
+                fontSize = 19.sp,
+                fontWeight = FontWeight.W400
+            ), modifier = Modifier.constrainAs(name) {
                 start.linkTo(parent.start)
                 top.linkTo(username.bottom)
                 bottom.linkTo(followers.top)
@@ -138,13 +148,14 @@ fun SearchProfileLayout(
                     top.linkTo(name.bottom, 10.dp)
                     bottom.linkTo(parent.top)
                 })
-            Divider(modifier = Modifier
-                .fillMaxWidth()
-                .constrainAs(line) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(followers.bottom, 16.dp)
-                }, thickness = 0.4.dp
+            Divider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .constrainAs(line) {
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        top.linkTo(followers.bottom, 16.dp)
+                    }, thickness = 0.4.dp
             )
         }
 
@@ -167,20 +178,20 @@ fun FollowButton(
 
     TextButton(
         onClick = onClick,
-        border = BorderStroke(1.dp, Color.Gray),
+        border = BorderStroke(1.dp, gray_color),
         modifier = modifier
-            .width(120.dp)
-            .height(40.dp),
+            .width(120.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.White,
             contentColor = Color.Black
         ),
-        shape = RoundedCornerShape(10.dp)
+        shape = RoundedCornerShape(10.dp),
+        contentPadding = PaddingValues(vertical = 0.dp)
     ) {
         Text(
-            text = "Follow", style = TextStyle(
+            text = stringResource(R.string.follow), style = TextStyle(
                 fontSize = 18.sp,
-                fontWeight = FontWeight.W600
+                fontWeight = FontWeight.W500
 
             )
         )

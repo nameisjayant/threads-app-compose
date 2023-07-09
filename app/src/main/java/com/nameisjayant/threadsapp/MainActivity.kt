@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -31,8 +32,9 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     bottomBar = {
                         BottomAppBar(
+                            modifier = Modifier.height(60.dp),
                             containerColor = Color.White,
-                            contentPadding = PaddingValues(horizontal = 20.dp)
+                            contentPadding = PaddingValues(horizontal = 20.dp),
                         ) {
                             BottomBar(navHostController = navHostController)
                         }
