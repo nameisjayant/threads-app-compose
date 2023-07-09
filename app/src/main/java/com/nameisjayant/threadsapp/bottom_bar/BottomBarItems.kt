@@ -24,7 +24,7 @@ sealed class BottomBarItems(
     object Post : BottomBarItems(
         "post",
         "Post",
-        R.drawable.add
+        R.drawable.post
     )
 
     object Notification : BottomBarItems(

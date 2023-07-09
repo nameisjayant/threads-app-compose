@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     bottomBar = {
                         BottomAppBar(
                             containerColor = Color.White,
-                            contentPadding = PaddingValues(vertical = 0.dp)
+                            contentPadding = PaddingValues(horizontal = 20.dp)
                         ) {
                             BottomBar(navHostController = navHostController)
                         }
