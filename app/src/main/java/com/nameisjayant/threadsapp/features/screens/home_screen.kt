@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -67,11 +68,18 @@ fun UserPostEach(
 
         ) {
             Text(text = "nameisjayant", modifier = Modifier.layoutId(Home.USERNAME))
+
             ConstraintLayout(
                 decoupledConstraints(),
                 modifier = Modifier.layoutId(Home.TIME_LAYOUT)
             ) {
-                Text(text = "2 h")
+                Text(text = "2 h", modifier = Modifier.layoutId(Home.TIME))
+                Icon(
+                    Icons.Default.MoreVert,
+                    contentDescription = "",
+                    tint = Color.Black,
+                    modifier = Modifier.layoutId(Home.THREE_DOTS)
+                )
             }
         }
     }
@@ -105,7 +113,8 @@ private fun decoupledConstraints(): ConstraintSet {
         val postLayout = createRefFor(Home.POST_LAYOUT)
         val username = createRefFor(Home.USERNAME)
         val timeLayout = createRefFor(Home.TIME_LAYOUT)
-        val time  = createRefFor(Home.TIME)
+        val time = createRefFor(Home.TIME)
+        val threeDot = createRefFor(Home.THREE_DOTS)
 
         constrain(icon) {
             start.linkTo(parent.start)
@@ -129,12 +138,19 @@ private fun decoupledConstraints(): ConstraintSet {
             start.linkTo(parent.start)
             top.linkTo(parent.top)
         }
-        constrain(time){
+        constrain(timeLayout) {
+            start.linkTo(username.end)
+            end.linkTo(parent.end)
+            top.linkTo(parent.top)
+        }
+        constrain(time) {
             start.linkTo(parent.start)
             top.linkTo(parent.top)
         }
+        constrain(threeDot) {
+            start.linkTo(time.end)
+        }
 
-        createHorizontalChain(username, timeLayout, chainStyle = ChainStyle.Spread)
 
     }
 }
