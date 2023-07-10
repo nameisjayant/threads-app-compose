@@ -3,4 +3,5 @@
     <string name="search">Search</string>
     <string name="activity">Activity</string>
     <string name="follow">Follow</string>
+    <string name="following">Following</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.nameisjayant.threadsapp.features.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -98,7 +99,7 @@ fun SearchScreen() {
 fun SearchProfileLayout(
     modifier: Modifier = Modifier
 ) {
-
+    var isFollow by remember { mutableStateOf(false) }
     ConstraintLayout(
         modifier = modifier
             .padding(vertical = 10.dp)
@@ -155,7 +156,7 @@ fun SearchProfileLayout(
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                         top.linkTo(followers.bottom, 16.dp)
-                    }, thickness = 0.4.dp
+                    }, thickness = 0.5.dp
             )
         }
 
@@ -163,22 +164,26 @@ fun SearchProfileLayout(
             modifier = Modifier.constrainAs(followButton) {
                 end.linkTo(parent.end)
                 top.linkTo(parent.top)
-            }
-        )
+            },
+            text = if (isFollow) stringResource(R.string.following) else stringResource(id = R.string.follow)
+        ) {
+            isFollow = !isFollow
+        }
     }
 
 }
 
-
+@SuppressLint("ModifierParameter")
 @Composable
 fun FollowButton(
+    text: String = stringResource(id = R.string.follow),
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
 
     TextButton(
         onClick = onClick,
-        border = BorderStroke(1.dp, gray_color),
+        border = BorderStroke(1.dp, Color.LightGray),
         modifier = modifier
             .width(120.dp),
         colors = ButtonDefaults.buttonColors(
@@ -189,7 +194,7 @@ fun FollowButton(
         contentPadding = PaddingValues(vertical = 0.dp)
     ) {
         Text(
-            text = stringResource(R.string.follow), style = TextStyle(
+            text = text, style = TextStyle(
                 fontSize = 18.sp,
                 fontWeight = FontWeight.W500
 
